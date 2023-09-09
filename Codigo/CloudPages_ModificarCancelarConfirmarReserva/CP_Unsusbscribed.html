@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Desuscrito</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        text-align: center;
+      }
+      .container h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      .container p {
+        font-size: 1rem;
+        color: #666;
+      }
+      .button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    %%[
+      /* Recoger los datos de los parámetros de la URL */
+      var @landingContactID, @landingEmailAddress, @message
+      set @landingContactID = RequestParameter('Contact_ID')
+      set @landingEmailAddress = RequestParameter('EmailAddress')
+
+      /* Insertar estos valores en la Data Extension */
+      if not empty(@landingContactID) and not empty(@landingEmailAddress) then
+        var @insertStatus
+        set @insertStatus = InsertData("DE_Unsuscribed", "Contact_ID", @landingContactID, "EmailAddress", @landingEmailAddress)
+
+        if @insertStatus == 1 then
+          set @message = "Datos insertados con éxito."
+        else
+          set @message = "Hubo un error al insertar los datos."
+        endif
+      else
+        set @message = "Los datos necesarios están vacíos."
+      endif
+    ]%%
+
+    <div class="container">
+      <h1>Unsubscribed</h1>
+      <p>%%=v(@message)=%%</p>
+      <div>
+        <label>Contact ID: </label>
+        <span><b>%%=v(@landingContactID)=%%</b></span>
+      </div>
+      <div>
+        <label>Email Address: </label>
+        <span><b>%%=v(@landingEmailAddress)=%%</b></span>
+      </div>
+      <p>You have been unsubscribed from our communications</p>
+      <a href="https://mchn8kdspj3pfr55f9x132xgkx94.pub.sfmc-content.com/oigvw21erao" class="button">Volver al inicio</a>
+    </div>
+  </body>
+</html>

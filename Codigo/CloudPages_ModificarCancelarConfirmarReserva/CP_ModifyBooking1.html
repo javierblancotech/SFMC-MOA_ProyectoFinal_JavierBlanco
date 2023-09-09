@@ -1,0 +1,263 @@
+%%[
+var @Booking_Id, @result
+set @Booking_Id = RequestParameter("Booking_Id")
+set @result = UpdateDE("DE_Bookings", 1, "Booking_Id", @Booking_Id, "Status", "Confirmed")
+]%%
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Thank You!</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 2rem auto;
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+      }
+      .info-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+      .info-section > div {
+        flex: 0 0 calc(50% - 1rem);
+        margin: 0.5rem;
+      }
+      .info-section label {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+input[type="submit"] {
+        background-color: #3498db;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+form {
+        margin-bottom: 50px; /* Margen inferior */
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Thank You for Your Booking!</h1>
+     %%[
+        var @HotelName, @Booking_Id, @Type, @Adults, @Kids, @Rooms, @Checkin, @Checkout, @Contact, @EmailAddress, @Phone, @Nights, @Contact_ID, @Status, @DateBooking, @Language
+
+        set @HotelName = RequestParameter("HotelName")
+        set @Booking_Id = RequestParameter("Booking_Id")
+        set @Type = RequestParameter("Type")
+        set @Adults = RequestParameter("Adults")
+        set @Kids = RequestParameter("Kids")
+        set @Rooms = RequestParameter("Rooms")
+        set @Checkin = RequestParameter("Checkin")
+        set @Checkout = RequestParameter("Checkout")
+        set @Contact = RequestParameter("Contact")
+        set @EmailAddress = RequestParameter("EmailAddress")
+        set @Phone = RequestParameter("Phone")
+        set @Nights = RequestParameter("Nights")
+        set @Contact_ID = RequestParameter("Contact_ID")
+        set @Status = RequestParameter("Status")
+        set @DateBooking = RequestParameter("DateBooking")
+        set @Language = RequestParameter("Language")
+      ]%%
+
+
+      <div class="info-section">
+        <div>
+          <label>Contact Name: </label>
+          <span>%%=v(@Contact)=%%</span>
+        </div>
+        <div>
+          <label>Email: </label>
+          <span>%%=v(@EmailAddress)=%%</span>
+        </div>
+        <div>
+          <label>Phone: </label>
+          <span>%%=v(@Phone)=%%</span>
+        </div>
+        <div>
+          <label>Language: </label>
+          <span>%%=v(@Language)=%%</span>
+        </div>
+      </div>
+      <div class="info-section">
+        <div>
+          <label>Hotel: </label>
+          <span>%%=v(@HotelName)=%%</span>
+        </div>
+        <div>
+          <label>Check-in: </label>
+          <span>%%=v(@Checkin)=%%</span>
+        </div>
+        <div>
+          <label>Check-out: </label>
+          <span>%%=v(@Checkout)=%%</span>
+        </div>
+        <div>
+          <label>Duration (Nights): </label>
+          <span>%%=v(@Nights)=%%</span>
+        </div>
+      </div>
+      <div class="info-section">
+        <div>
+          <label>Rooms: </label>
+          <span>%%=v(@Rooms)=%%</span>
+        </div>
+        <div>
+          <label>Type: </label>
+          <span>%%=v(@Type)=%%</span>
+        </div>
+        <div>
+          <label>Adults: </label>
+          <span>%%=v(@Adults)=%%</span>
+        </div>
+        <div>
+          <label>Kids: </label>
+          <span>%%=v(@Kids)=%%</span>
+        </div>
+        <!-- Añadido el campo Status -->
+        <div>
+          <label>Status: </label>
+          <span>%%=v(@Status)=%%</span>
+        </div>
+        <!-- Fin del campo añadido -->
+      </div>
+    </div>
+
+
+%%[
+var @HotelName, @Booking_Id, @Type, @Adults, @Kids, @Rooms, @Checkin, @Checkout, @Contact, @EmailAddress, @Phone, @Nights, @Contact_ID, @Status, @DateBooking, @Language, @cloudPageURL
+set @HotelName = AttributeValue("HotelName")
+set @Booking_Id = RequestParameter("Booking_Id")
+set @Type = AttributeValue("Type")
+set @Adults = AttributeValue("Adults")
+set @Kids = AttributeValue("Kids")
+set @Rooms = AttributeValue("Rooms")
+set @Checkin = AttributeValue("Checkin")
+set @Checkout = AttributeValue("Checkout")
+set @Contact = AttributeValue("Contact")
+set @EmailAddress = AttributeValue("EmailAddress")
+set @Phone = AttributeValue("Phone")
+set @Nights = AttributeValue("Nights")
+set @Contact_ID = RequestParameter("Contact_ID")
+set @Status = RequestParameter("Status")
+set @DateBooking = RequestParameter("DateBooking")
+set @Language = AttributeValue("Language")
+set @cloudPageURL = CloudPagesURL(3022)
+]%%
+
+<form action="%%=CloudPagesURL(3022, 'HotelName', @HotelName, 'Booking_Id', @Booking_Id, 'Type', @Type, 'Adults', @Adults, 'Kids', @Kids, 'Rooms', @Rooms, 'Checkin', @Checkin, 'Checkout', @Checkout, 'Contact', @Contact, 'EmailAddress', @EmailAddress, 'Phone', @Phone, 'Nights', @Nights, 'Contact_ID', @Contact_ID, 'Status', @Status, 'DateBooking', @DateBooking, 'Language', @Language)=%%" method="post">
+    <fieldset>
+      <legend>You can modify your booking details here </legend>
+      
+%%[
+var @BookingId, @ContactId
+set @BookingId = RequestParameter("Booking_Id")
+set @ContactId = RequestParameter("Contact_ID")
+]%%
+
+<form>
+  <p class="highlight">
+  <b>Booking ID:</b> %%=v(@Booking_Id)=%%
+</p>
+<p class="highlight">
+  <b>Contact ID:</b> %%=v(@Contact_ID)=%%
+</p>
+
+<input type="hidden" name="HotelName" value="%%=v(@HotelName)=%%">
+  <input type="hidden" name="Booking_Id" value="%%=v(@Booking_Id)=%%">
+
+      <br>
+      <br>
+      <label for="Contact">Contact Name:</label>
+      <input type="text" id="Contact" name="Contact" required>
+      <br>
+      <label for="EmailAddress">Email Address:</label>
+      <input type="email" id="EmailAddress" name="EmailAddress" required>
+      <br>
+      <label for="Phone">Phone:</label>
+      <input type="tel" id="Phone" name="Phone">
+      <br>
+      <label for="Language">Language:</label>
+      <select id="Language" name="Language" required>
+        <option value="ES">ES</option>
+        <option value="EN">EN</option>
+        <option value="GE">GE</option>
+        <option value="PT">PT</option>
+        <option value="FR">FR</option>
+        <option value="RU">RU</option>
+      </select>
+      <br>
+      <label for="Adults">Number of Adults:</label>
+      <input type="number" id="Adults" name="Adults" required onchange="updateAdults()">
+      <br>
+      <div id="dniContainer">
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Booking Details</legend>
+      <label for="HotelName">Hotel Name:</label>
+      <select id="HotelName" name="HotelName" required>
+        <option value="MOAUSA">MOAUSA</option>
+        <option value="MOALisbon">MOALisbon</option>
+        <option value="MOABerlin">MOABerlin</option>
+        <option value="MOAlcobendas">MOAlcobendas</option>
+        <option value="MOAKremlin">MOAKremlin</option>
+        <option value="MOAParis">MOAParis</option>
+      </select>
+
+      <br>
+      <label for="Checkin">Check-in Date:</label>
+      <input type="date" id="Checkin" name="Checkin" required>
+      <br>
+      <label for="Checkout">Check-out Date:</label>
+      <input type="date" id="Checkout" name="Checkout" required>
+      <br>
+      <label for="Nights">Duration of Stay (nights):</label>
+      <input type="number" id="Nights" name="Nights" required>
+      <br>
+      <label for="Rooms">Number of Rooms:</label>
+      <input type="number" id="Rooms" name="Rooms" required>
+      <br>
+      <label for="Type">Type:</label>
+      <input type="text" id="Type" name="Type" required>
+      <br>
+      <label for="Kids">Number of Kids:</label>
+      <input type="number" id="Kids" name="Kids">
+      <br>
+      
+      <input type="hidden" name="DateBooking" value="%%=v(@today)=%%">
+    </fieldset>
+   <input type="submit" value="Modify your Booking">
+</form>
+
+
+
+</body>
+</html>

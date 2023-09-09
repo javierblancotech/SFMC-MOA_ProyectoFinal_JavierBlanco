@@ -1,0 +1,182 @@
+%%[
+        var @HotelName, @Booking_Id, @Type, @Adults, @Kids, @Rooms, @Checkin, @Checkout, @Contact, @EmailAddress, @Phone, @Nights, @Contact_ID, @Status, @DateBooking, @Language
+
+        set @HotelName = RequestParameter("HotelName")
+        set @Booking_Id = RequestParameter("Booking_Id")
+        set @Type = RequestParameter("Type")
+        set @Adults = RequestParameter("Adults")
+        set @Kids = RequestParameter("Kids")
+        set @Rooms = RequestParameter("Rooms")
+        set @Checkin = RequestParameter("Checkin")
+        set @Checkout = RequestParameter("Checkout")
+        set @Contact = RequestParameter("Contact")
+        set @EmailAddress = RequestParameter("EmailAddress")
+        set @Phone = RequestParameter("Phone")
+        set @Nights = RequestParameter("Nights")
+        set @Contact_ID = RequestParameter("Contact_ID")
+        set @Status = RequestParameter("Status")
+        set @DateBooking = RequestParameter("DateBooking")
+        set @Language = RequestParameter("Language")
+      ]%%
+
+
+
+/* Actualizar la fila en la Data Extension "DE_Bookings" */
+var @rowsUpdated
+set @rowsUpdated = UpdateData("DE_Bookings", 2, "Booking_Id", @Booking_Id, "Contact_ID", @Contact_ID, "HotelName", @HotelName, "Type", @Type, "Adults", @Adults, "Kids", @Kids, "Rooms", @Rooms, "Checkin", @Checkin, "Checkout", @Checkout, "Contact", @Contact, "EmailAddress", @EmailAddress, "Phone", @Phone, "Nights", @Nights, "Status", @Status, "DateBooking", @DateBooking, "Language", @Language)
+]%%
+
+
+
+
+%%[
+var @rowsUpdated
+set @rowsUpdated = UpdateData("DE_Bookings", 1, "Booking_Id", @Booking_Id, "Contact_ID", @Contact_ID, "HotelName", @HotelName, "Type", @Type, "Adults", @Adults, "Kids", @Kids, "Rooms", @Rooms, "Checkin", @Checkin, "Checkout", @Checkout, "Contact", @Contact, "EmailAddress", @EmailAddress, "Phone", @Phone, "Nights", @Nights, "Status", @Status, "DateBooking", @DateBooking, "Language", @Language))
+]%%
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Thank You!</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 2rem auto;
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+      }
+      .info-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+      .info-section > div {
+        flex: 0 0 calc(50% - 1rem);
+        margin: 0.5rem;
+      }
+      .info-section label {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+input[type="submit"] {
+        background-color: #3498db;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+form {
+        margin-bottom: 50px; /* Margen inferior */
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>These are the new modified details of your Booking! </h1>
+    
+
+
+
+
+
+
+
+      <div class="info-section">
+        <div>
+          <label>Contact Name: </label>
+          <span>%%=v(@Contact)=%%</span>
+        </div>
+        <div>
+          <label>Email: </label>
+          <span>%%=v(@EmailAddress)=%%</span>
+        </div>
+        <div>
+          <label>Phone: </label>
+          <span>%%=v(@Phone)=%%</span>
+        </div>
+        <div>
+          <label>Language: </label>
+          <span>%%=v(@Language)=%%</span>
+        </div>
+      </div>
+      <div class="info-section">
+        <div>
+          <label>Hotel: </label>
+          <span>%%=v(@HotelName)=%%</span>
+        </div>
+        <div>
+          <label>Check-in: </label>
+          <span>%%=v(@Checkin)=%%</span>
+        </div>
+        <div>
+          <label>Check-out: </label>
+          <span>%%=v(@Checkout)=%%</span>
+        </div>
+        <div>
+          <label>Duration (Nights): </label>
+          <span>%%=v(@Nights)=%%</span>
+        </div>
+      </div>
+      <div class="info-section">
+        <div>
+          <label>Rooms: </label>
+          <span>%%=v(@Rooms)=%%</span>
+        </div>
+        <div>
+          <label>Type: </label>
+          <span>%%=v(@Type)=%%</span>
+        </div>
+        <div>
+          <label>Adults: </label>
+          <span>%%=v(@Adults)=%%</span>
+        </div>
+        <div>
+          <label>Kids: </label>
+          <span>%%=v(@Kids)=%%</span>
+        </div>
+        <!-- Añadido el campo Status -->
+        <div>
+          <label>Status: </label>
+          <span>%%=v(@Status)=%%</span>
+        </div>
+        <div>
+  <label>Booking ID: </label>
+  <span>%%=v(@Booking_Id)=%%</span>
+</div>
+        <div>
+  <label>Contact ID: </label>
+  <span>%%=v(@Contact_ID)=%%</span>
+</div>
+
+        <!-- Fin del campo añadido -->
+      </div>
+    </div>
+
+
+
+
+</body>
+</html>

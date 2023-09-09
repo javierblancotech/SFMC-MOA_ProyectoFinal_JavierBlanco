@@ -1,0 +1,55 @@
+%%[
+var @Booking_Id, @result, @statusValue
+set @Booking_Id = RequestParameter("Booking_Id")
+set @result = UpdateDE("DE_Bookings", 1, "Booking_Id", @Booking_Id, "Status", "Canceled")
+
+/* Obtiene el valor actualizado del campo Status para el Booking_Id especificado */
+set @statusValue = Lookup("DE_Bookings", "Status", "Booking_Id", @Booking_Id)
+]%%
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Cancellation</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .status {
+      color: red;
+      text-align: center;
+    }
+    h1 {
+      color: red;
+      text-align: center;
+    }
+    p {
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>YOUR BOOKING HAS BEEN SUCCESSFULLY CANCELED</h1>
+  <p>We're sorry to see you go. We hope to serve you again in the future.</p>
+
+  <p class="status">Status Value: %%=v(@statusValue)=%%</p>
+</div>
+
+</body>
+</html>
