@@ -57,6 +57,21 @@
         background-color: #0056b3;
       }
     </style>
+
+
+   <script>
+    function updateAdults() {
+      const numAdults = document.getElementById('Adults').value;
+      let dniHTML = '';
+      for (let i = 1; i <= numAdults; i++) {
+        dniHTML += `
+<label for="Adult${i}_DNI">Adult ${i} DNI:</label>
+<input type="text" id="Adult${i}_DNI" name="Adult${i}_DNI"><br>
+`;
+      }
+      document.getElementById('dniContainer').innerHTML = dniHTML;
+    }
+    </script>
   </head>
   <body>
     %%[
@@ -139,18 +154,6 @@
       </fieldset>
       <input type="submit" value="Make a Booking">
     </form>
-    <script>
-    function updateAdults() {
-      const numAdults = document.getElementById('Adults').value;
-      let dniHTML = '';
-      for (let i = 1; i <= numAdults; i++) {
-        dniHTML += `
-<label for="Adult${i}_DNI">Adult ${i} DNI:</label>
-<input type="text" id="Adult${i}_DNI" name="Adult${i}_DNI"><br>
-`;
-      }
-      document.getElementById('dniContainer').innerHTML = dniHTML;
-    }
-    </script>
+ 
   </body>
 </html>
