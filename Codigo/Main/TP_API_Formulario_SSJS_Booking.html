@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reserva exitosa</title>
+</head>
+<style>
+        /* Estilo para centrar y cambiar el color del texto */
+        .center-text {
+            text-align: center;
+            color: green;
+        }
+
+         .center-text1 {
+            text-align: center;
+            
+        }
+    </style>
+<body>
+  
+  
+  %%[
+  var @HotelName, @BookingId, @Type, @Adults, @Kids, @Rooms, @Phone, @Checkin, @Checkout, @Contact, @EmailAddress, @Nights, @ContactId, @Status, @DateBooking, @Language
+  
+  set @HotelName = RequestParameter("HotelName")
+  set @BookingId = RequestParameter("Booking_Id")
+  set @Type = RequestParameter("Type")
+  set @Adults = RequestParameter("Adults")
+  set @Kids = RequestParameter("Kids")
+  set @Rooms = RequestParameter("Rooms")
+  set @Phone = RequestParameter("Phone")
+  set @Checkin = RequestParameter("Checkin")
+  set @Checkout = RequestParameter("Checkout")
+  set @Contact = RequestParameter("Contact")
+  set @EmailAddress = RequestParameter("EmailAddress")
+  set @Nights = RequestParameter("Nights")
+  set @ContactId = RequestParameter("Contact_ID")
+  set @Status = RequestParameter("Status")
+  set @DateBooking = RequestParameter("DateBooking")
+  set @Language = RequestParameter("Language")
+]%%
+
+<script runat="server">
+
+    Platform.Load("Core", "1.1.1");
+
+    var data = {
+      HotelName: Variable.GetValue("@HotelName"),
+      Booking_Id: Variable.GetValue("@BookingId"),
+      Type: Variable.GetValue("@Type"),
+      Adults: Variable.GetValue("@Adults"),
+      Kids: Variable.GetValue("@Kids"),
+      Rooms: Variable.GetValue("@Rooms"),
+      Phone: Variable.GetValue("@Phone"),
+      Checkin: Variable.GetValue("@Checkin"),
+      Checkout: Variable.GetValue("@Checkout"),
+      Contact: Variable.GetValue("@Contact"),
+      EmailAddress: Variable.GetValue("@EmailAddress"),
+      Nights: Variable.GetValue("@Nights"),
+      Contact_ID: Variable.GetValue("@ContactId"),
+      Status: Variable.GetValue("@Status"),
+      DateBooking: Variable.GetValue("@DateBooking"),
+      Language: Variable.GetValue("@Language")
+    }
+
+
+    var setup = {
+      authBaseURI: "https://mchn8kdspj3pfr55f9x132xgkx94.auth.marketingcloudapis.com/",
+      restBaseURI: "https://mchn8kdspj3pfr55f9x132xgkx94.rest.marketingcloudapis.com/",
+      clientId: "32ctrfxo5zbk0pur9b8mkcux",
+      clientSecret: "8QLvCLguelIugm6bU4ixVpsk",
+      eventDefinitionKey: "APIEvent-b3d9acef-fdef-f190-3b4e-1d0fab079dd7"
+    }
+
+    try {
+      var token = getToken(setup);
+      var success = false;
+      if (!!token) success = triggerEvent(token, setup, data);
+      if (!!success) Write("Subscriber was successfully injected into the Journey");
+      else Write("Failed to inject subscriber into the Journey");
+    } catch (err) {
+      Write("Error: " + Stringify(err));
+    }
+
+    function getToken(setup) {
+
+      var config = {
+        url: setup.authBaseURI + "v2/token",
+        contentType: "application/json",
+        payload: {
+          "client_id": setup.clientId,
+          "client_secret": setup.clientSecret,
+          "grant_type": "client_credentials"
+        }
+      }
+
+      var req = HTTP.Post(config.url, config.contentType, Stringify(config.payload));
+
+      if (req.StatusCode == 200) {
+        var res = Platform.Function.ParseJSON(req.Response[0]);
+        return res.access_token;
+      } else {
+        return false;
+      }
+
+    }
+
+    function triggerEvent(token, setup, data) {
+
+      var config = {
+        url: setup.restBaseURI + "interaction/v1/events",
+        contentType: "application/json",
+        headerName: ["Authorization"],
+        headerValue: ["Bearer " + token],
+        payload: {
+          ContactKey: data.Booking_Id,
+          EventDefinitionKey: setup.eventDefinitionKey,
+          Data: data
+        }
+      }
+
+      var req = HTTP.Post(config.url, config.contentType, Stringify(config.payload), config.headerName, config.headerValue);
+
+      if (req.StatusCode == 201) {
+        var res = Platform.Function.ParseJSON(req["Response"][0]);
+        if (res.eventInstanceId != null && res.eventInstanceId != "") return true;
+      } else {
+        return false;
+      }
+
+    }
+
+  </script>
+
+
+
+
+
+
+
+    <h1 class="center-text">Your Booking Has Been Successfully Inserted</h1>
+    <p class="center-text1">Thank you for your Booking.</p>
+
+</body>
+</html>
