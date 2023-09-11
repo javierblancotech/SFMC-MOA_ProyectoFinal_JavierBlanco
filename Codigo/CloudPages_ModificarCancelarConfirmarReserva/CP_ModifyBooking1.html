@@ -62,6 +62,21 @@ form {
 
 
     </style>
+
+
+<script>
+  function updateAdults() {
+    const numAdults = document.getElementById('Adults').value;
+    let dniHTML = '';
+    for (let i = 1; i <= numAdults; i++) {
+      dniHTML += `
+<label for="Adult${i}_DNI">Adult ${i} DNI:</label>
+<input type="text" id="Adult${i}_DNI" name="Adult${i}_DNI"><br>
+`;
+    }
+    document.getElementById('dniContainer').innerHTML = dniHTML;
+  }
+  </script>
   </head>
   <body>
     <div class="container">
@@ -252,7 +267,7 @@ set @ContactId = RequestParameter("Contact_ID")
       <input type="number" id="Kids" name="Kids">
       <br>
       
-      <input type="hidden" name="DateBooking" value="%%=v(@today)=%%">
+      <input type="hidden" name="DateBooking" value="@DateBooking">
     </fieldset>
    <input type="submit" value="Modify your Booking">
 </form>

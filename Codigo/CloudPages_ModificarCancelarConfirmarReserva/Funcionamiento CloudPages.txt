@@ -1,0 +1,7 @@
+- CP_ModifyBooking1: Muestra los datos de la reserva y un formulario abajo para HACER UN UPDATE DE TODOS LOS DATOS y redirige a CP_ModifyBooking2
+- CP_ModifyBooking2: Recoge los datos actualizados en el formulario de CP_ModifyBooking1 y los ACTUALIZA en la DE_Bookings
+
+- CP_ConfirmedBooking: Hace un Update del campo "Status" en la Data Extension DE_Bookings a "Confirmed"
+- CP_CanceledBooking: Hace un Update del campo "Status" en la Data Extension DE_Bookings a "Canceled"
+
+- CP_Unsusbscribed: Inserta los datos del usuario en una Data Extensions de Bajas para que no se le hagan más comunicaciones
