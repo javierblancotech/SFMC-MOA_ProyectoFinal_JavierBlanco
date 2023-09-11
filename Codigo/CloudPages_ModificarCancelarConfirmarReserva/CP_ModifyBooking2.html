@@ -1,8 +1,12 @@
 %%[
         var @HotelName, @Booking_Id, @Type, @Adults, @Kids, @Rooms, @Checkin, @Checkout, @Contact, @EmailAddress, @Phone, @Nights, @Contact_ID, @Status, @DateBooking, @Language
 
-        set @HotelName = RequestParameter("HotelName")
+        
         set @Booking_Id = RequestParameter("Booking_Id")
+        set @Contact_ID = RequestParameter("Contact_ID")
+        
+        
+        set @HotelName = RequestParameter("HotelName")
         set @Type = RequestParameter("Type")
         set @Adults = RequestParameter("Adults")
         set @Kids = RequestParameter("Kids")
@@ -13,26 +17,21 @@
         set @EmailAddress = RequestParameter("EmailAddress")
         set @Phone = RequestParameter("Phone")
         set @Nights = RequestParameter("Nights")
-        set @Contact_ID = RequestParameter("Contact_ID")
+        
         set @Status = RequestParameter("Status")
         set @DateBooking = RequestParameter("DateBooking")
         set @Language = RequestParameter("Language")
       ]%%
 
 
-
+%%[
 /* Actualizar la fila en la Data Extension "DE_Bookings" */
 var @rowsUpdated
-set @rowsUpdated = UpdateData("DE_Bookings", 2, "Booking_Id", @Booking_Id, "Contact_ID", @Contact_ID, "HotelName", @HotelName, "Type", @Type, "Adults", @Adults, "Kids", @Kids, "Rooms", @Rooms, "Checkin", @Checkin, "Checkout", @Checkout, "Contact", @Contact, "EmailAddress", @EmailAddress, "Phone", @Phone, "Nights", @Nights, "Status", @Status, "DateBooking", @DateBooking, "Language", @Language)
+  set @rowsUpdated = UpdateDE("DE_Bookings", 1, "Booking_Id", @Booking_Id, "Status",  @Status, "HotelName", @HotelName, "Type", @Type, "Adults", @Adults, "Kids", @Kids, "Rooms", @Rooms, "Contact", @Contact,"EmailAddress", @EmailAddress,"Phone", @Phone, "Nights", @Nights, "Language", @Language, "Checkin", @Checkin, "Checkout", @Checkout)
 ]%%
 
 
 
-
-%%[
-var @rowsUpdated
-set @rowsUpdated = UpdateData("DE_Bookings", 1, "Booking_Id", @Booking_Id, "Contact_ID", @Contact_ID, "HotelName", @HotelName, "Type", @Type, "Adults", @Adults, "Kids", @Kids, "Rooms", @Rooms, "Checkin", @Checkin, "Checkout", @Checkout, "Contact", @Contact, "EmailAddress", @EmailAddress, "Phone", @Phone, "Nights", @Nights, "Status", @Status, "DateBooking", @DateBooking, "Language", @Language))
-]%%
 
 
 
@@ -174,6 +173,7 @@ form {
         <!-- Fin del campo añadido -->
       </div>
     </div>
+
 
 
 
