@@ -1,0 +1,7 @@
+﻿HotelName;Country;Language;Address;City;PostalCode;Phone;EmailAddress;PriceNight
+MOAUSA;USA;EN;Main Avenue, 134;San Diego;91911;(555) 555-1234;booking_habana@email.com;150
+MOALisbon;Portugal;PT;Luciano Cordeiro 78;Lisboa;658723;3,52E+11;booking_farol3@email.com;80
+MOABerlin;Germany;GE;Stralauer Platz 36;Berlin;10243;4,93E+12;booking.schultz@email.com;140
+MOAlcobendas;Spain;ES;Calle Madrid;Alcobendas;28108;6574558;booking.moa@nateevo.com;200
+MOAKremlin;Russia;RU;Stalin;Lenin;5423652;6585256;booking@kremlin.com;130
+MOAParis;France;FR;Notre Dame;Paris;465125;65461654654;paris@moa.com;180

@@ -1,0 +1,7 @@
+HotelName;Booking_Id;Type;Adults;Kids;Rooms;Checkin;Checkout;Contact;EmailAddress;Phone;Nights;Contact_ID;Status;DateBooking;Language
+MOAlcobendas;BK036871;Top;2;3;2;03/10/2023;05/05/2023;Joseph Green;joseph.green@email.com;111111111;2;6542365;Pending;09/09/2023;ES
+MOAParis;BK036881;Top;1;1;1;04/10/2023;14/05/2023;Andrea Pink;andrea.pink@email.com;222222222;10;6542366;Confirmed;09/09/2023;FR
+MOAKremlin;BK036891;Medium;2;2;2;13/10/2023;30/05/2023;Margarita Blanco;margarita.blanco@email.com;333333333;17;6542367;Confirmed;09/09/2023;RU
+MOAUSA;BK036901;Medium;2;1;1;23/10/2023;27/05/2023;Luis Blue;luis.blue@email.com;444444444;4;6542368;Canceled;09/09/2023;EN
+MOALisbon;BK036911;Basic;1;0;1;03/10/2023;08/06/2023;Peter Black;peter.black@email.com;555555555;5;6542369;Pending;09/09/2023;PT
+MOABerlin;BK036921;Basic;2;0;1;03/10/2023;20/04/2023;Joe White;joe.white@email.com;666666666;17;6542360;Canceled;09/09/2023;GE
