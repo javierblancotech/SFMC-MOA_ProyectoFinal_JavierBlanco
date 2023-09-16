@@ -9,231 +9,343 @@ set @result = UpdateDE("DE_Bookings", 1, "Booking_Id", @Booking_Id, "Status", "C
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Thank You!</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f7f7f7;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 800px;
-        margin: 2rem auto;
-        background-color: #ffffff;
-        padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      }
-      h1 {
-        color: #2c3e50;
-        text-align: center;
-      }
-      .info-section {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-bottom: 1.5rem;
-      }
-      .info-section > div {
-        flex: 0 0 calc(50% - 1rem);
-        margin: 0.5rem;
-      }
-      .info-section label {
-        font-weight: bold;
-        margin-right: 10px;
-      }
 
-input[type="submit"] {
-        background-color: #3498db;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
 
-form {
-        margin-bottom: 50px; /* Margen inferior */
-      }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .info-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-section>div {
+      flex: 0 0 calc(50% - 1rem);
+      margin: 0.5rem;
+    }
+
+    .info-section label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #3498db;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    form {
+      margin-bottom: 50px;
+      /* Margen inferior */
+    }
+
+    .form-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .highlight {
+      background-color: #f8f8f8;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    label {
+      display: inline-block;
+      width: 180px;
+      font-size: 1em;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+select {
+  box-sizing: border-box; /* Asegura que el padding y el borde están incluidos en el ancho total */
+  width: 100%; /* Establece el ancho al 100% del contenedor padre */
+  max-width: calc(100% - 190px); /* Limita el ancho máximo */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
 
 
-    </style>
-
-
-<script>
-  function updateAdults() {
-    const numAdults = document.getElementById('Adults').value;
-    let dniHTML = '';
-    for (let i = 1; i <= numAdults; i++) {
-      dniHTML += `
+  <script>
+    function updateAdults() {
+      const numAdults = document.getElementById('Adults').value;
+      let dniHTML = '';
+      for (let i = 1; i <= numAdults; i++) {
+        dniHTML += `
 <label for="Adult${i}_DNI">Adult ${i} DNI:</label>
 <input type="text" id="Adult${i}_DNI" name="Adult${i}_DNI"><br>
 `;
+      }
+      document.getElementById('dniContainer').innerHTML = dniHTML;
     }
-    document.getElementById('dniContainer').innerHTML = dniHTML;
-  }
-  </script>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Thank You for Your Booking!</h1>
-     %%[
-        var @HotelName, @Booking_Id, @Type, @Adults, @Kids, @Rooms, @Checkin, @Checkout, @Contact, @EmailAddress, @Phone, @Nights, @Contact_ID, @Status, @DateBooking, @Language
 
-        set @HotelName = RequestParameter("HotelName")
-        set @Booking_Id = RequestParameter("Booking_Id")
-        set @Type = RequestParameter("Type")
-        set @Adults = RequestParameter("Adults")
-        set @Kids = RequestParameter("Kids")
-        set @Rooms = RequestParameter("Rooms")
-        set @Checkin = RequestParameter("Checkin")
-        set @Checkout = RequestParameter("Checkout")
-        set @Contact = RequestParameter("Contact")
-        set @EmailAddress = RequestParameter("EmailAddress")
-        set @Phone = RequestParameter("Phone")
-        set @Nights = RequestParameter("Nights")
-        set @Contact_ID = RequestParameter("Contact_ID")
-        set @Status = RequestParameter("Status")
-        set @DateBooking = RequestParameter("DateBooking")
-        set @Language = RequestParameter("Language")
+
+    function calculateNights() {
+      const checkinElement = document.getElementById('Checkin');
+      const checkoutElement = document.getElementById('Checkout');
+      const nightsElement = document.getElementById('Nights');
+
+      const checkinDate = new Date(checkinElement.value);
+      const checkoutDate = new Date(checkoutElement.value);
+
+      const diffTime = Math.abs(checkoutDate - checkinDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      nightsElement.value = isNaN(diffDays) ? '' : diffDays;
+    }
+
+    function updateRooms() {
+      const numAdults = parseInt(document.getElementById('Adults').value) || 0;
+      const numKids = parseInt(document.getElementById('Kids').value) || 0;
+      const totalPeople = numAdults + numKids;
+
+      let minRooms = Math.ceil(totalPeople / 3);
+      let maxRooms = totalPeople;
+
+      if (minRooms === 0) minRooms = 1; // At least 1 room should be booked
+
+      const roomsElement = document.getElementById('Rooms');
+      roomsElement.min = minRooms;
+      roomsElement.max = maxRooms;
+      roomsElement.value = minRooms; // Update the value to the minimum required
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Thank You for Your Booking!</h1>
+    %%[
+    var @HotelName, @Booking_Id, @Type, @Adults, @Kids, @Rooms, @Checkin, @Checkout, @Contact, @EmailAddress, @Phone,
+    @Nights, @Contact_ID, @Status, @DateBooking, @Language
+
+    set @HotelName = RequestParameter("HotelName")
+    set @Booking_Id = RequestParameter("Booking_Id")
+    set @Type = RequestParameter("Type")
+    set @Adults = RequestParameter("Adults")
+    set @Kids = RequestParameter("Kids")
+    set @Rooms = RequestParameter("Rooms")
+    set @Checkin = RequestParameter("Checkin")
+    set @Checkout = RequestParameter("Checkout")
+    set @Contact = RequestParameter("Contact")
+    set @EmailAddress = RequestParameter("EmailAddress")
+    set @Phone = RequestParameter("Phone")
+    set @Nights = RequestParameter("Nights")
+    set @Contact_ID = RequestParameter("Contact_ID")
+    set @Status = RequestParameter("Status")
+    set @DateBooking = RequestParameter("DateBooking")
+    set @Language = RequestParameter("Language")
+    ]%%
+
+
+    <div class="info-section">
+      <div>
+        <label>Contact Name: </label>
+        <span>%%=v(@Contact)=%%</span>
+      </div>
+      <div>
+        <label>Email: </label>
+        <span>%%=v(@EmailAddress)=%%</span>
+      </div>
+      <div>
+        <label>Phone: </label>
+        <span>%%=v(@Phone)=%%</span>
+      </div>
+      <div>
+        <label>Language: </label>
+        <span>%%=v(@Language)=%%</span>
+      </div>
+    </div>
+    <div class="info-section">
+      <div>
+        <label>Hotel: </label>
+        <span>%%=v(@HotelName)=%%</span>
+      </div>
+      <div>
+        <label>Check-in: </label>
+        <span>%%=v(@Checkin)=%%</span>
+      </div>
+      <div>
+        <label>Check-out: </label>
+        <span>%%=v(@Checkout)=%%</span>
+      </div>
+      <div>
+        <label>Duration (Nights): </label>
+        <span>%%=v(@Nights)=%%</span>
+      </div>
+    </div>
+    <div class="info-section">
+      <div>
+        <label>Rooms: </label>
+        <span>%%=v(@Rooms)=%%</span>
+      </div>
+      <div>
+        <label>Type: </label>
+        <span>%%=v(@Type)=%%</span>
+      </div>
+      <div>
+        <label>Adults: </label>
+        <span>%%=v(@Adults)=%%</span>
+      </div>
+      <div>
+        <label>Kids: </label>
+        <span>%%=v(@Kids)=%%</span>
+      </div>
+      <!-- Añadido el campo Status -->
+      <div>
+        <label>Status: </label>
+        <span>%%=v(@Status)=%%</span>
+      </div>
+      <!-- Fin del campo añadido -->
+    </div>
+  </div>
+
+
+  %%[
+  var @HotelName, @Booking_Id, @Type, @Adults, @Kids, @Rooms, @Checkin, @Checkout, @Contact, @EmailAddress, @Phone,
+  @Nights, @Contact_ID, @Status, @DateBooking, @Language, @cloudPageURL
+  set @HotelName = AttributeValue("HotelName")
+  set @Booking_Id = RequestParameter("Booking_Id")
+  set @Type = AttributeValue("Type")
+  set @Adults = AttributeValue("Adults")
+  set @Kids = AttributeValue("Kids")
+  set @Rooms = AttributeValue("Rooms")
+  set @Checkin = AttributeValue("Checkin")
+  set @Checkout = AttributeValue("Checkout")
+  set @Contact = AttributeValue("Contact")
+  set @EmailAddress = AttributeValue("EmailAddress")
+  set @Phone = AttributeValue("Phone")
+  set @Nights = AttributeValue("Nights")
+  set @Contact_ID = RequestParameter("Contact_ID")
+  set @Status = RequestParameter("Status")
+  set @DateBooking = RequestParameter("DateBooking")
+  set @Language = AttributeValue("Language")
+  set @cloudPageURL = CloudPagesURL(3022)
+  ]%%
+
+  <form
+    action="%%=CloudPagesURL(3022, 'HotelName', @HotelName, 'Booking_Id', @Booking_Id, 'Type', @Type, 'Adults', @Adults, 'Kids', @Kids, 'Rooms', @Rooms, 'Checkin', @Checkin, 'Checkout', @Checkout, 'Contact', @Contact, 'EmailAddress', @EmailAddress, 'Phone', @Phone, 'Nights', @Nights, 'Contact_ID', @Contact_ID, 'Status', @Status, 'DateBooking', @DateBooking, 'Language', @Language)=%%"
+    method="post">
+    <fieldset>
+      <legend>You can modify your booking details here </legend>
+
+      %%[
+      var @BookingId, @ContactId
+      set @BookingId = RequestParameter("Booking_Id")
+      set @ContactId = RequestParameter("Contact_ID")
       ]%%
 
 
-      <div class="info-section">
-        <div>
-          <label>Contact Name: </label>
-          <span>%%=v(@Contact)=%%</span>
-        </div>
-        <div>
-          <label>Email: </label>
-          <span>%%=v(@EmailAddress)=%%</span>
-        </div>
-        <div>
-          <label>Phone: </label>
-          <span>%%=v(@Phone)=%%</span>
-        </div>
-        <div>
-          <label>Language: </label>
-          <span>%%=v(@Language)=%%</span>
-        </div>
-      </div>
-      <div class="info-section">
-        <div>
-          <label>Hotel: </label>
-          <span>%%=v(@HotelName)=%%</span>
-        </div>
-        <div>
-          <label>Check-in: </label>
-          <span>%%=v(@Checkin)=%%</span>
-        </div>
-        <div>
-          <label>Check-out: </label>
-          <span>%%=v(@Checkout)=%%</span>
-        </div>
-        <div>
-          <label>Duration (Nights): </label>
-          <span>%%=v(@Nights)=%%</span>
-        </div>
-      </div>
-      <div class="info-section">
-        <div>
-          <label>Rooms: </label>
-          <span>%%=v(@Rooms)=%%</span>
-        </div>
-        <div>
-          <label>Type: </label>
-          <span>%%=v(@Type)=%%</span>
-        </div>
-        <div>
-          <label>Adults: </label>
-          <span>%%=v(@Adults)=%%</span>
-        </div>
-        <div>
-          <label>Kids: </label>
-          <span>%%=v(@Kids)=%%</span>
-        </div>
-        <!-- Añadido el campo Status -->
-        <div>
-          <label>Status: </label>
-          <span>%%=v(@Status)=%%</span>
-        </div>
-        <!-- Fin del campo añadido -->
-      </div>
-    </div>
+      <form>
+        <p class="highlight">
+          <b>Booking ID:</b> %%=v(@Booking_Id)=%%
+        </p>
+        <p class="highlight">
+          <b>Contact ID:</b> %%=v(@Contact_ID)=%%
+        </p>
 
 
-%%[
-var @HotelName, @Booking_Id, @Type, @Adults, @Kids, @Rooms, @Checkin, @Checkout, @Contact, @EmailAddress, @Phone, @Nights, @Contact_ID, @Status, @DateBooking, @Language, @cloudPageURL
-set @HotelName = AttributeValue("HotelName")
-set @Booking_Id = RequestParameter("Booking_Id")
-set @Type = AttributeValue("Type")
-set @Adults = AttributeValue("Adults")
-set @Kids = AttributeValue("Kids")
-set @Rooms = AttributeValue("Rooms")
-set @Checkin = AttributeValue("Checkin")
-set @Checkout = AttributeValue("Checkout")
-set @Contact = AttributeValue("Contact")
-set @EmailAddress = AttributeValue("EmailAddress")
-set @Phone = AttributeValue("Phone")
-set @Nights = AttributeValue("Nights")
-set @Contact_ID = RequestParameter("Contact_ID")
-set @Status = RequestParameter("Status")
-set @DateBooking = RequestParameter("DateBooking")
-set @Language = AttributeValue("Language")
-set @cloudPageURL = CloudPagesURL(3022)
-]%%
+        <input type="hidden" name="Booking_Id" value="%%=v(@Booking_Id)=%%">
 
-<form action="%%=CloudPagesURL(3022, 'HotelName', @HotelName, 'Booking_Id', @Booking_Id, 'Type', @Type, 'Adults', @Adults, 'Kids', @Kids, 'Rooms', @Rooms, 'Checkin', @Checkin, 'Checkout', @Checkout, 'Contact', @Contact, 'EmailAddress', @EmailAddress, 'Phone', @Phone, 'Nights', @Nights, 'Contact_ID', @Contact_ID, 'Status', @Status, 'DateBooking', @DateBooking, 'Language', @Language)=%%" method="post">
-    <fieldset>
-      <legend>You can modify your booking details here </legend>
-      
-%%[
-var @BookingId, @ContactId
-set @BookingId = RequestParameter("Booking_Id")
-set @ContactId = RequestParameter("Contact_ID")
-]%%
-
-<form>
-  <p class="highlight">
-  <b>Booking ID:</b> %%=v(@Booking_Id)=%%
-</p>
-<p class="highlight">
-  <b>Contact ID:</b> %%=v(@Contact_ID)=%%
-</p>
-
-
-  <input type="hidden" name="Booking_Id" value="%%=v(@Booking_Id)=%%">
-
-      <br>
-      <br>
-      <label for="Contact">Contact Name:</label>
-      <input type="text" id="Contact" name="Contact" required>
-      <br>
-      <label for="EmailAddress">Email Address:</label>
-      <input type="email" id="EmailAddress" name="EmailAddress" required>
-      <br>
-      <label for="Phone">Phone:</label>
-      <input type="tel" id="Phone" name="Phone">
-      <br>
-      <label for="Language">Language:</label>
-      <select id="Language" name="Language" required>
-        <option value="ES">ES</option>
-        <option value="EN">EN</option>
-        <option value="GE">GE</option>
-        <option value="PT">PT</option>
-        <option value="FR">FR</option>
-        <option value="RU">RU</option>
-      </select>
-      <br>
-      <label for="Adults">Number of Adults:</label>
-      <input type="number" id="Adults" name="Adults" required onchange="updateAdults()">
-      <br>
-      <div id="dniContainer">
-      </div>
+        <br>
+        <br>
+        <label for="Contact">Contact Name:</label>
+        <input type="text" id="Contact" name="Contact" required>
+        <br>
+        <label for="EmailAddress">Email Address:</label>
+        <input type="email" id="EmailAddress" name="EmailAddress" required>
+        <br>
+        <label for="Phone">Phone:</label>
+        <input type="tel" id="Phone" name="Phone">
+        <br>
+        <label for="Language">Language:</label>
+        <select id="Language" name="Language" required>
+          <option value="ES">ES</option>
+          <option value="EN">EN</option>
+          <option value="GE">GE</option>
+          <option value="PT">PT</option>
+          <option value="FR">FR</option>
+          <option value="RU">RU</option>
+        </select>
+        <br>
+        <label for="Adults">Number of Adults:</label>
+        <input type="number" id="Adults" name="Adults" required onchange="updateAdults()">
+        <br>
+        <div id="dniContainer">
+        </div>
     </fieldset>
     <fieldset>
       <legend>Booking Details</legend>
@@ -246,33 +358,33 @@ set @ContactId = RequestParameter("Contact_ID")
         <option value="MOAKremlin">MOAKremlin</option>
         <option value="MOAParis">MOAParis</option>
       </select>
-
       <br>
       <label for="Checkin">Check-in Date:</label>
-      <input type="date" id="Checkin" name="Checkin" required>
+      <input type="date" id="Checkin" name="Checkin" required onchange="calculateNights()">
       <br>
       <label for="Checkout">Check-out Date:</label>
-      <input type="date" id="Checkout" name="Checkout" required>
+      <input type="date" id="Checkout" name="Checkout" required onchange="calculateNights()">
       <br>
       <label for="Nights">Duration of Stay (nights):</label>
-      <input type="number" id="Nights" name="Nights" required>
+      <input type="number" id="Nights" name="Nights" readonly>
+      <br>
+      <label for="Kids">Number of Kids:</label>
+      <input type="number" id="Kids" name="Kids" onchange="updateRooms()">
       <br>
       <label for="Rooms">Number of Rooms:</label>
       <input type="number" id="Rooms" name="Rooms" required>
       <br>
       <label for="Type">Type:</label>
       <input type="text" id="Type" name="Type" required>
-      <br>
-      <label for="Kids">Number of Kids:</label>
-      <input type="number" id="Kids" name="Kids">
-      <br>
-      
-      <input type="hidden" name="DateBooking" value="@DateBooking">
+      <br>      
+      <input type="hidden" name="Status" value="Confirmed">
+      <input type="hidden" name="DateBooking" id="DateBooking" value="%%=v(@currentDate)=%%">
     </fieldset>
-   <input type="submit" value="Modify your Booking">
-</form>
+    <input type="submit" value="Make a Booking">
+  </form>
 
 
 
 </body>
+
 </html>
